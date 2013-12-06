@@ -3,7 +3,7 @@
 <head>
 <title>Pure Web 2.0</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" type="text/css" href="css/style1.css" />
+<link rel="stylesheet" type="text/css" href="css/style1.css"/>
 <link href="css/lightbox.css" rel="stylesheet" />
 <link href="css/TableCSSRed-1.css" rel="stylesheet" />
 
