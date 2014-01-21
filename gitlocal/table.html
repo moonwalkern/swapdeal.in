@@ -1,0 +1,74 @@
+
+<!DOCTYPE html><html><head><style>body{padding:15px;}</style><script src="http://code.jquery.com/jquery-latest.js"></script></head><body>
+<span id="black_only">Show only black</span><br>
+<span id="white_only">Show only white</span><br>
+<span id="red_only">Show only red</span><br>
+<span id="all">Show all of them</span>
+<style>
+.black{background-color:black;}
+#white{background-color:white;}
+</style>
+<table class="someclass" border="0" cellpadding="0" cellspacing="0" summary="bla bla bla">
+<caption>bla bla bla</caption>
+<thead>
+  <tr class="black">
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+  </tr>
+</thead>
+<tbody>
+  <tr id="white">
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+</tr>
+  <tr class="black" style="background-color:black;">
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+</tr>
+<tr class="red" style="background-color:red;">
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+    <td>Some Text</td>
+</tr>
+</tbody>
+<script>
+$(function(){
+   $("#black_only").click(function(){
+    $("#white").hide();
+    $(".black").show();
+   
+   });
+   $("#white_only").click(function(){
+    $(".black").hide();
+    $("#white").show();
+   
+   });
+   $("#all").click(function(){
+    $("#white").show();
+    $(".black").show();
+   
+   });
+   $("#red_only").click(function(){
+    $("#red").show();
+    $(".black").hide();
+    $("#white").hide();
+   
+   });
+   
+});
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+ </HEAD>
+
+ <BODY>
+  <!-- legend -->
+<legend id="leg54335658" class="">
+  Legend
+</legend>
+<!-- horizontal form -->
+<div id="bform3914571" class="form-horizontal">
+  <!-- text field -->
+  <div id="bgroup5875575" class="control-group">
+    <label class="control-label" for="bform_input5875575">
+      Label:
+    </label>
+    <div class="controls">
+      <input id="bform_input5875575" placeholder="Placeholder" type="text">
+    </div>
+  </div>
+  <!-- date box -->
+  <div id="bdategroup55065711" class="control-group">
+    <label class="control-label" for="bform_input55065711">
+      Date:
+    </label>
+    <div class="controls">
+      <input id="bform_input55065711" class="advdateBox hasDatepicker" placeholder="Choose Date" type="text">
+    </div>
+  </div>
+  <!-- select box -->
+  <div id="bgroup27275714" class="control-group">
+    <label class="control-label" for="bform_input27275714">
+      Select:
+    </label>
+    <div class="controls">
+      <select id="bselect27275714">
+        <option>
+          1
+        </option>
+        <option>
+          2
+        </option>
+        <option>
+          3
+        </option>
+        <option>
+          4
+        </option>
+        <option>
+          5
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+ </BODY>
+</HTML>

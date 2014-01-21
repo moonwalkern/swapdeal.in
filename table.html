@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript">
+
+var original = $('table').html();
+$("#reset").click(function() { $('table').html(original); return false; });
+
+$('.Delete').live('click', function() {
+    $(this).closest('tr')
+        .children('td')
+        .animate({ padding: 0 })
+        .wrapInner('<div />')
+        .children()
+        .slideUp(function() { $(this).closest('tr').remove(); });
+    return false;
+});
+
+</script>
+ </HEAD>
+
+
+
+
+
+ <BODY>
+  <table>
+    <tr>
+        <th>Name</th>
+        <th>Site</th>
+        <th />
+    </tr>
+    <tr>
+        <td><img src="http://www.astreeview.com/Images/demoIcons/microsoft.gif" /> Microsoft</td>
+        <td>Click <a href="http://microsoft.com">here</a>.</td>
+        <td><button class="Delete">Delete</button> row</td>
+    </tr>
+    <tr>
+        <td><img src="http://bouml.free.fr/images/apple.png" /> Apple</td>
+        <td>Click <a href="http://apple.com">here</a>.</td>
+        <td><button class="Delete">Delete</button> row</td>
+    </tr>
+    <tr>
+        <td><img src="http://www.selesti.com/selesti-images/icon-microsoft.gif" /> Windows</td>
+        <td>Click <a href="http://www.microsoft.com/windows/default.aspx">here</a>.</td>
+        <td><button class="Delete">Delete</button> row</td>
+    </tr>
+    <tr>
+        <td><img src="http://ruscoe.net/images/icon-google.png" /> Google</td>
+        <td>Click <a href="http://google.com">here</a>.</td>
+        <td><button class="Delete">Delete</button> row</td>
+    </tr>
+</table>
+<button id="reset">Reset</button>
+
+ </BODY>
+</HTML>

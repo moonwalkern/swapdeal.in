@@ -7,8 +7,8 @@
     function check_user($username, $passowrd)
     {
         DB::$dbName = "swapdeal";
-        DB::$user = "root";
-        DB::$password = "admin";
+        DB::$user = "swapdeal";
+        DB::$password = "swapdeal";
         
         //print_r(DB::query("SELECT * FROM swapdeal.swapuser WHERE username=%s AND password=%s", "swapadmin", "admin"));
         

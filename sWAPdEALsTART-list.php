@@ -1,29 +1,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Pure Web 2.0</title>
+<title>SwapDeal</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="css/style1.css"/>
 <link href="css/lightbox.css" rel="stylesheet" />
 <link href="css/TableCSSRed-1.css" rel="stylesheet" />
-
+<link type="text/css" rel="stylesheet" href="/_docs/syntax/!style.css"/>
+<link type="text/css" rel="stylesheet" href="/_docs/!style.css"/>
+<link type="text/css" rel="stylesheet" href="css/jquery-ui-1.10.3.custom.css"/>
+<style>
+    body { font-size: 62.5%; }
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="/_lib/jquery.js"></script>
 <script type="text/javascript" src="/_lib/jquery.cookie.js"></script>
 <script type="text/javascript" src="/_lib/jquery.hotkeys.js"></script>
 <script type="text/javascript" src="jquery.jstree.js"></script>
-<link type="text/css" rel="stylesheet" href="/_docs/syntax/!style.css"/>
-<link type="text/css" rel="stylesheet" href="/_docs/!style.css"/>
-<!--[if IE]><link rel="stylesheet" type="text/css" href="ie_style.css" /><![endif]-->
-<!--[if lt IE 7]>
-<script language="JavaScript">
-
-</script>
-<![endif]-->
-
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/lightbox-2.6.min.js"></script>
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.js"></script>
+<script src="js/swapScriptCreate.js"></script>
 
 <script type="text/javascript">
+        
 		$(document).ready(function() {
 			setTimeout(function() {
 				// Slide
@@ -113,7 +123,13 @@
     	self.xmlHttpReq.send(false);
         //alert("Submit Disposition");
     }
-    
+    /*
+    function replaySell(){
+        alert(document.getElementById('tr_reply').style.visibility);
+        document.getElementById('tr_reply').style.visibility = 'visible';
+        document.getElementById('div_reply').style.visibility = 'visible';
+        
+    }*/
 	function updatepage(str){
 	   alert("got response");
 	   alert(str);
@@ -124,18 +140,63 @@
 				 //xmlhttpPost("http://localhost/swapdeal.in/php/SwapAjax.php");
 				 //alert(document.getElementById("searchDiv"));
 				 $.get("http://localhost/swapdeal.in/php/SwapRealRecords.php", function(responseText) {
-    			 //alert(responseText);
+    			 // alert(responseText);
                  document.getElementById("searchDiv").innerHTML = responseText;
-				 			 		});
+		 		});
 				 
 		}
+        
+  
+       
+    $(function(){
+        $("#black_only").click(function(){
+        $("#white").hide();
+        $(".black").hide();
+        $(".tr_reply").show();
+        
+    
+   });
+   });
+   
+   $(function(){
+        $("#reply1").click(function(){
+        $("#white").hide();
+        $(".black").hide();
+        $(".tr_reply").show();
+        
+    
+   });
+   });
+   
 	</script>
     			
 </head>
-<body>
-<a href="img/demopage/image-2.jpg" data-lightbox="roadtrip">image #2</a>
-<a href="img/demopage/image-3.jpg" data-lightbox="roadtrip"></a>
-<a href="img/demopage/image-4.jpg" data-lightbox="roadtrip"></a>
+<body onload="search()">
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">All form fields are required.</p>
+ 
+  <form>
+  <fieldset>
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+    <label for="mobile">Mobile</label>
+    <input type="text" name="mobile" id="mobile" class="text ui-widget-content ui-corner-all">
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+  </fieldset>
+  </form>
+</div>
+
+<div id="dialog" title="Swap Deal Create" style="visibility: hidden">
+</div>
+
+<div id="dialogload" title="Swap Deal Create" style="visibility: hidden">
+    <img src="img/loading.gif" width="32" height="32" />
+</div>
+<button id="create-user1">Create new user</button>
+<button id='create-user'>Create new user</button>
 <div id="wrapper">
 
   <div id="head">
@@ -160,10 +221,23 @@
 <div id="headerBox1">
       <div class="header_h1">sWAP dEAL</div>
       <div class="header_p"> Just Sell.<br />
+      <span id="black_only">Show only black</span><br>
+      <table>
+      <thead>
+  <tr class="black">
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+    <th>Header Text</th>
+  </tr>
+</thead>
+      </table>
         <br />
-        Mauris porttitor, eros at cursus fermentum, felis nibh rhoncus quam, a volutpat enim mauris at elit.<br />
         <br />
-        <em>Lorem ipsum dolor sit amet</em></div>
+        <br />
+        <em></em></div>
       </div>
 </div>	
 <div id="headerBox">
@@ -200,43 +274,7 @@
 			</ul>
 		</li>
 	</ul>
-	<script type="text/javascript" class="source below">
-$(function () {
-	// TO CREATE AN INSTANCE
-	// select the tree container using jQuery
-	$("#demo1")
-		// call `.jstree` with the options object
-		.jstree({
-			// the `plugins` array allows you to configure the active plugins on this instance
-			"plugins" : ["themes","html_data","ui","crrm","hotkeys"],
-			// each plugin you have included can have its own config object
-			"core" : { "initially_open" : [ "phtml_1" ] }
-			// it makes sense to configure a plugin only if overriding the defaults
-		})
-		// EVENTS
-		// each instance triggers its own events - to process those listen on the container
-		// all events are in the `.jstree` namespace
-		// so listen for `function_name`.`jstree` - you can function names from the docs
-		.bind("select_node.jstree", function (event, data) {
-			// you get two params - event & data - check the core docs for a detailed description
-			alert(data.rslt.obj.attr("id"));
-		});
-	// INSTANCES
-	// 1) you can call most functions just by selecting the container and calling `.jstree("func",`
-	setTimeout(function () { $("#demo1").jstree("set_focus"); }, 500);
-	// with the methods below you can call even private functions (prefixed with `_`)
-	// 2) you can get the focused instance using `$.jstree._focused()`. 
-	setTimeout(function () { $.jstree._focused().select_node("#phtml_1"); }, 1000);
-	// 3) you can use $.jstree._reference - just pass the container, a node inside it, or a selector
-	setTimeout(function () { $.jstree._reference("#phtml_1").close_node("#phtml_1"); }, 1500);
-	// 4) when you are working with an event you can use a shortcut
-	$("#demo1").bind("open_node.jstree", function (e, data) {
-		// data.inst is the instance which triggered this event
-		data.inst.select_node("#phtml_2", true);
-	});
-	setTimeout(function () { $.jstree._reference("#phtml_1").open_node("#phtml_1"); }, 2500);
-});
-</script>
+
 </div>
 
             
@@ -244,6 +282,7 @@ $(function () {
 	   </div>
 	<div id="servicesbox">
     <div class="servicesItem" id="searchDiv">
+   
     </div>
  </div>
  </div>
