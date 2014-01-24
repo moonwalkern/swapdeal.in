@@ -14,26 +14,76 @@
 <link href="postform/css/canvas.css" rel="stylesheet">
 <link href="postform/css/jTools.css" rel="stylesheet">
 <link href="postform/js/usertools_run.css" rel="stylesheet">
-
+<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 
 
 
 <script src="postform/js/canvas_libs.js"></script>
-
 <script src="postform/js/usertools_design.js"></script>
 <script src="postform/js/usertools_run.js"></script>
 <script type="text/javascript" src="js/Ajaxfileupload-jquery-1.3.2.js" ></script>
 <script type="text/javascript" src="js/ajaxupload.3.5.js" ></script>
+
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui-1.10.3.custom.js"></script>
+
 <script type="text/javascript" >
+
+	$(function() {
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			width: 400,
+			buttons: [
+				{
+					text: "Ok",
+					click: function() {
+						$( this ).dialog( "close" );
+                        var url = "http://localhost/swapdeal.in/sWAPdEALsTART-list-2.php";    
+                        $(location).attr('href',url);
+					}
+				},
+				{
+					text: "Cancel",
+					click: function() {
+						$( this ).dialog( "close" );
+					}
+				}
+			]
+		});
+
+	
+	});
+
+
+    $(function() {  
+        $( "#placeadbutton" ).click(function(e) { 
+            var data = $( "#myform" ).serialize();
+            	
+        $.ajax({
+            url: 'php/SwapItemInsert.php',
+            type: 'POST',
+            data: data,
+            success: function (result) {
+                e.preventDefault();
+              $( "#dialog" ).dialog( "open" );
+		  	       event.preventDefault();
+                   document.getElementById("dialog").innerHTML = result;
+            }
+        });  
+
+        });  
+    }); 
+
 
     function call_insert(){
         var data = $( "#myform" ).serialize();
+        alert(data);
         var data1 = $( "#category" ).val();
         $.ajax({
        type: "POST",
        url: "php/SwapItemInsert.php",
        data: data
-      
+  
      });
     }
     
@@ -74,10 +124,13 @@
 				//On completion clear the status
 				files.html('');
 				//Add uploaded file to list
-				if(response==="success"){
-					$('<li></li>').appendTo('#files').html('<img src="swapitems/webinfopedia_'+file+'" alt="" height="40" width="40" /><br />').addClass('success');
-				} else{
+                //alert(response);
+                var folder = response;
+				if(response==="error"){
 					$('<li></li>').appendTo('#files').text(file).addClass('error');
+				} else{
+					
+                    $('<li></li>').appendTo('#files').html('<img src="swapitems/'+folder+'/1.jpg" alt="" height="40" width="40" /><br />').addClass('success');
 				}
 			}
 		});
@@ -103,10 +156,12 @@
 				//On completion clear the status
 				files.html('');
 				//Add uploaded file to list
-				if(response==="success"){
-					$('<li></li>').appendTo('#files1').html('<img src="swapitems/webinfopedia_'+file+'" alt="" height="40" width="40" /><br />').addClass('success');
-				} else{
+                var folder = response;
+				if(response==="error"){
 					$('<li></li>').appendTo('#files1').text(file).addClass('error');
+				} else{
+					
+                    $('<li></li>').appendTo('#files1').html('<img src="swapitems/'+folder+'/2.jpg" alt="" height="40" width="40" /><br />').addClass('success');
 				}
 			}
 		});
@@ -164,7 +219,11 @@ body {
     </div>
 </div>
 
-<form id="myform">
+<form id="myform" onsubmit="return false;">
+
+<div id="dialog" title="Item Created">
+	
+</div>
     <!--Building Post Ad form -->
 <div id="servicesbox" style='overflow:auto; width:950px;height:890px;'>
         <!-- legend -->
@@ -489,7 +548,7 @@ body {
     <!-- button -->
     <div class="control-group">
       <div class="controls">
-        <button id="placeadbutton" class="btn" onclick="call_insert()">
+        <button id="placeadbutton" class="btn">
           Place Ad
         </button>
       </div>

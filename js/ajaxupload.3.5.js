@@ -222,6 +222,7 @@ Ajax_upload = AjaxUpload = function(button, options){
 		// File upload name
 		name: 'userfile',
 		// Additional data to send
+
 		data: {itemid:options['itemid']},
 		// Submit file as soon as it's selected
 		autoSubmit: true,

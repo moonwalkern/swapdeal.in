@@ -1,32 +1,61 @@
 <?Php
     require_once("C:\Sreeji\SwapDeal.in\php\lib\swapdealdb.class.php");
     require_once("C:\Sreeji\SwapDeal.in\php\lib\class.phpmailer.php");
-    //echo $_GET['username'];    
-    $insertuser = array(
-        'name' => $_GET['name'],
-        'username' => $_GET['username'],
-        'password' => $_GET['password'],
-        'mobile' => $_GET['mobile'],
-        'email' => $_GET['email']
-        );
+    ini_set("log_errors", 1);
+    ini_set("error_log", "C:\\Sreeji\\SwapDeal.in\\log\\error.log");
+    
+    error_log("SwapInserUser Classs");
+    //echo $_GET['username'];
+    if(isset($_GET['name']))
+    {
+    
+        $insertuser = array(
+            'id' => 0,
+            'name' => $_GET['name'],
+            'username' => $_GET['username'],
+            'password' => $_GET['password'],
+            'mobile' => $_GET['mobile'],
+            'email' => $_GET['email']
+         );
+         createUser($insertuser, TRUE);
+    }     
+    
+    
+function createUser($insertuser, $internal){
+    
+    
+    
     $usernameExist = check_username($insertuser['username']);     
     //echo "user:".$usernameExist;
-    if($usernameExist == 0){
+    error_log("userid:".$usernameExist);
+    if($usernameExist == NULL){
         $relatimeArray = fetch_swapinsertuser($insertuser);
+        error_log("userid:". $relatimeArray);
         if($relatimeArray == 1){
             echo "<p>Failure</p>";
             die;
         }else {
-            echo "<p>You have become a registed users with Swap Deal, mail send with details.</p>";
+            if($internal == FALSE){
+                error_log("new user id :".$relatimeArray);
+                return $relatimeArray.",New";
+            }else{
+                echo "<p>You have become a registed users with Swap Deal, mail send with details.</p>";    
+            }
+            
             
            sendSwapMail($insertuser);
             
         }
     }else{
-        echo "<p>Username already exist, please select a different</p>";
-        die;
+        
+        if($internal == FALSE){
+            return $usernameExist.",Existing";
+        }else {
+            echo "<p>Username already exist, please select a different</p>";
+            die;
+        }
     }    
-    
+}
     
     
     function fetch_swapinsertuser($userdetailsArray)
@@ -40,7 +69,9 @@
         DB::$throw_exception_on_error = true;
         $realtimeData = 0;
         try{
-            DB::insert("swapuser", $userdetailsArray);    
+            DB::insert("swapuser", $userdetailsArray); 
+            $realtimeData = DB::insertId();
+            error_log("userid:".$realtimeData);  
         }catch(SwapDealDBException $e) {
             echo "Error: " . $e->getMessage() . "<br>\n"; // something about duplicate keys
             echo "SQL Query: " . $e->getQuery() . "<br>\n"; // INSERT INTO accounts...
@@ -57,13 +88,14 @@
         DB::$password = "swapdeal";
         DB::$host = "127.0.0.1";
         DB::$port = 3307;
-        
+        // get Joe's password and print it out 
+
         
         //print_r(DB::query("SELECT * FROM swapdeal.swapuser WHERE username=%s AND password=%s", "swapadmin", "admin"));
         
-        $number_user = DB::queryFirstField("SELECT COUNT(*) FROM swapuser WHERE username=%s" , $username);
+        $id = DB::queryOneField("id", "SELECT * FROM swapuser WHERE username=%s" , $username);
         
-        return $number_user;
+        return $id;
     }
     
     function sendSwapMail($insertuser){

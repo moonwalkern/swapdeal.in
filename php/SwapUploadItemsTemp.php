@@ -10,56 +10,39 @@ error_log($_FILES['uploadfile']['name']);
 error_log("Post...:".print_R($_POST,TRUE));
 error_log(print_R($_FILES,TRUE) );
 
-if(!isset($_SESSION['sessionid'])){
-    error_log("no sesson id");
-}else{
-    error_log("session id from session :".$_SESSION['sessionid']." session from object:".session_id());
-}
-
-//if(!isset($_SESSION['sessionid'])){
-//    if($_SESSION['sessionid'] != session_id())
-//        $_SESSION['sessionid'] = session_id();
-//}    
 $picname = $_FILES['uploadfile']['name'];
 $getpicext = strstr($picname,".");
 $picname = $_POST['itemid'].$getpicext;
 error_log($picname."--".$getpicext);
-
-
 error_log(print_r($_SESSION, TRUE));
-if(!isset($_SESSION['sessionid'])){
-   
-    //geting the next itemid from swapitem table
-    $_SESSION['sessionid'] = session_id();
-        $insertitems = array(
-            'itemID' => 0,
-            'itemPicLoc' => $picname
-            );
-        
-        
-        $nextitemID = insert_swapinsertitems($insertitems);
-        $_SESSION['itemID'] = $nextitemID;
-        error_log("item id " .$_SESSION['itemID']);
-    //
-}else if($_SESSION['sessionid'] != session_id()){
-    $_SESSION['sessionid'] = session_id();
+
+
+
+if($_POST['itemid'] == "1"){
     $insertitems = array(
-            'itemID' => 0,
-            'itemPicLoc' => $picname
-            );
-        
-        
-        $nextitemID = insert_swapinsertitems($insertitems);
-        $_SESSION['itemID'] = $nextitemID;
-        error_log("item id " .$_SESSION['itemID']);
-}else {
-    error_log("item id " .$_SESSION['itemID']);
-    $nextitemID = $_SESSION['itemID'];
-
-    //error_log(print_R($updateitems, TRUE));
-    update_swapinsertitems($nextitemID,$picname);
-
+        'sessionid' => session_id(),
+        'pic1' => $_POST['itemid'].$getpicext
+        );
+    
+}else if($_POST['itemid'] == "2"){
+    $insertitems = array(
+        'sessionid' => session_id(),
+        'pic2' => $_POST['itemid'].$getpicext
+        );
+    
+}else if($_POST['itemid'] == "3"){
+    $insertitems = array(
+        'sessionid' => session_id(),
+        'pic3' => $_POST['itemid'].$getpicext
+        );
+    
+}else if($_POST['itemid'] == "4"){
+    $insertitems = array(
+        'sessionid' => session_id(),
+        'pic4' => $_POST['itemid'].$getpicext
+        );
 }
+
 $picPlace = $picPlace.$nextitemID;
 error_log("picplace:".$picPlace);
 //Create a new directory for storing new items, the directory name will be of the itemid
